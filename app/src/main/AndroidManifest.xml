@@ -30,8 +30,6 @@
             android:name=".GameActivity"
             android:exported="false"/>
 
-
-
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
@@ -42,6 +40,10 @@
                     android:scheme="kakao29bf44d6e98091ea7f4a4282acf857ed" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".FriendListActivity"
+            android:exported="false"/>
     </application>
 
 
