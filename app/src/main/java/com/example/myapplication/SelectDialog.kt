@@ -12,17 +12,18 @@ class SelectDialog : DialogFragment() {
         return AlertDialog.Builder(requireContext())
             .setTitle("Game Mode")
             .setMessage("Select your game mode!")
-            .setPositiveButton(
-                "Single"
-            ) { dialog: DialogInterface?, which: Int -> }
-            .setNegativeButton(
-                "Double"
-            ) { dialog: DialogInterface?, which: Int ->
-                // Start friend list activity for double-player mode
+            .setPositiveButton("Single") { dialog: DialogInterface?, which: Int ->
+                // Launch GameActivity for single-player mode
+                val intent = Intent(requireContext(), GameActivity::class.java)
+                startActivity(intent)
+                dialog?.dismiss() // Optionally dismiss the dialog
+            }
+            .setNegativeButton("Double") { dialog: DialogInterface?, which: Int ->
+                // Launch FriendListActivity for double-player mode
                 val intent = Intent(requireContext(), FriendListActivity::class.java)
                 startActivity(intent)
+                dialog?.dismiss() // Optionally dismiss the dialog
             }
             .create()
     }
 }
-

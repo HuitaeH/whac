@@ -66,12 +66,15 @@ class GameStartActivity : AppCompatActivity() {
             }
         }
 
+        //without kakaotalk login - temporary
         findViewById<Button>(R.id.startButton).setOnClickListener {
             // Show dialog on successful login
             val dialog = SelectDialog()
             dialog.show(supportFragmentManager, "SelectDialog")
         }
 
+
+        //kakaotalk login
 //        findViewById<Button>(R.id.startButton).setOnClickListener {
 //            // Check if KakaoTalk is installed and login accordingly
 //            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
@@ -87,7 +90,8 @@ class GameStartActivity : AppCompatActivity() {
 //                        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
 //                    } else if (token != null) {
 //                        Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-//
+//                        // **Handle Token** - Store it securely
+//                        storeToken(token.accessToken)
 //                        // Show dialog on successful login
 //                        val dialog = SelectDialog()
 //                        dialog.show(supportFragmentManager, "SelectDialog")
@@ -98,6 +102,7 @@ class GameStartActivity : AppCompatActivity() {
 //                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
 //            }
 //        }
+
 
     }
 
@@ -116,6 +121,18 @@ class GameStartActivity : AppCompatActivity() {
             start()
         }
     }
+
+    // Method to store the token securely (e.g., SharedPreferences)
+    private fun storeToken(token: String) {
+        // Example: Store the token in SharedPreferences
+        val sharedPref = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("access_token", token)
+            apply()
+        }
+        Log.d(TAG, "Token stored successfully")
+    }
+
 
 
 }
