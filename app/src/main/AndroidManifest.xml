@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
         <activity
             android:name=".GameStartActivity"
             android:exported="true">
@@ -29,6 +30,20 @@
             android:name=".GameActivity"
             android:exported="false"/>
 
+
+
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="oauth"
+                    android:scheme="kakao29bf44d6e98091ea7f4a4282acf857ed" />
+            </intent-filter>
+        </activity>
     </application>
+
+
 
 </manifest>
