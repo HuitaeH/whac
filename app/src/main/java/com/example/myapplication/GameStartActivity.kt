@@ -16,6 +16,9 @@ import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.util.Utility
+
+
 
 
 
@@ -50,6 +53,10 @@ class GameStartActivity : AppCompatActivity() {
             "29bf44d6e98091ea7f4a4282acf857ed"
         ) // Replace with your actual Kakao app key
 
+        // Get and log the key hash
+        val keyHash = Utility.getKeyHash(this)
+        Log.d(TAG, "Key Hash: $keyHash") // Log the key hash for verification
+
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
@@ -60,31 +67,37 @@ class GameStartActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.startButton).setOnClickListener {
-            // Check if KakaoTalk is installed and login accordingly
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                    if (error != null) {
-                        Log.e(TAG, "카카오톡으로 로그인 실패", error)
-
-                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                            return@loginWithKakaoTalk
-                        }
-
-                        // Attempt login with Kakao account
-                        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-                    } else if (token != null) {
-                        Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-
-                        // Show dialog on successful login
-                        val dialog = SelectDialog()
-                        dialog.show(supportFragmentManager, "SelectDialog")
-                    }
-                }
-            } else {
-                // Attempt login with Kakao account directly
-                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-            }
+            // Show dialog on successful login
+            val dialog = SelectDialog()
+            dialog.show(supportFragmentManager, "SelectDialog")
         }
+
+//        findViewById<Button>(R.id.startButton).setOnClickListener {
+//            // Check if KakaoTalk is installed and login accordingly
+//            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+//                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+//                    if (error != null) {
+//                        Log.e(TAG, "카카오톡으로 로그인 실패", error)
+//
+//                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+//                            return@loginWithKakaoTalk
+//                        }
+//
+//                        // Attempt login with Kakao account
+//                        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//                    } else if (token != null) {
+//                        Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+//
+//                        // Show dialog on successful login
+//                        val dialog = SelectDialog()
+//                        dialog.show(supportFragmentManager, "SelectDialog")
+//                    }
+//                }
+//            } else {
+//                // Attempt login with Kakao account directly
+//                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//            }
+//        }
 
     }
 
@@ -103,6 +116,8 @@ class GameStartActivity : AppCompatActivity() {
             start()
         }
     }
+
+
 }
 
 
