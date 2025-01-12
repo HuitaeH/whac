@@ -48,6 +48,11 @@
         <activity
             android:name=".FriendListActivity"
             android:exported="false"/>
+
+        <activity
+            android:name=".SelectDialog"
+            android:exported="false"
+            />
     </application>
 
 
