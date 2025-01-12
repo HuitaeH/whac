@@ -18,7 +18,7 @@ class GameActivity : AppCompatActivity() {
         fun createAndAnimateBug() {
             // Create ImageView and set its size
             val bug = ImageView(this).apply {
-                val dpSize = 55  // size in dp
+                val dpSize = 80  // size in dp
                 val pixels = (dpSize * resources.displayMetrics.density).toInt()
                 layoutParams = RelativeLayout.LayoutParams(pixels, pixels)
             }

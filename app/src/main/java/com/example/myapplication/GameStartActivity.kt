@@ -82,40 +82,40 @@ class GameStartActivity : AppCompatActivity() {
         }
 
 //        //without kakaotalk login - temporary
-//        findViewById<Button>(R.id.startButton).setOnClickListener {
-//            // Show dialog on successful login
-//            val dialog = SelectDialog()
-//            dialog.show(supportFragmentManager, "SelectDialog")
-//        }
-
-
-        //kakaotalk login
         findViewById<Button>(R.id.startButton).setOnClickListener {
-            // Check if KakaoTalk is installed and login accordingly
-            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                    if (error != null) {
-                        Log.e(TAG, "Login failed with error: ${error.message}", error)
-
-                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                            return@loginWithKakaoTalk
-                        }
-
-                        // Attempt login with Kakao account
-                        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-                    } else if (token != null) {
-                        Log.i(TAG, "Login succeeded. Access token: ${token.accessToken}")
-                        // **Handle Token** - Store it securely
-                        storeToken(token.accessToken)
-
-
-                    }
-                }
-            } else {
-                // Attempt login with Kakao account directly
-                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-            }
+            // Show dialog on successful login
+           val dialog = SelectDialog()
+            dialog.show(supportFragmentManager, "SelectDialog")
         }
+
+//
+//        //kakaotalk login
+//        findViewById<Button>(R.id.startButton).setOnClickListener {
+//            // Check if KakaoTalk is installed and login accordingly
+//            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+//                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+//                    if (error != null) {
+//                        Log.e(TAG, "Login failed with error: ${error.message}", error)
+//
+//                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+//                            return@loginWithKakaoTalk
+//                        }
+//
+//                        // Attempt login with Kakao account
+//                        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//                    } else if (token != null) {
+//                        Log.i(TAG, "Login succeeded. Access token: ${token.accessToken}")
+//                        // **Handle Token** - Store it securely
+//                        storeToken(token.accessToken)
+//
+//
+//                    }
+//                }
+//            } else {
+//                // Attempt login with Kakao account directly
+//                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//            }
+//        }
 
 
     }
