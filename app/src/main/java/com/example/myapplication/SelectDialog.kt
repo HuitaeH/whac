@@ -45,10 +45,11 @@ class SelectDialog : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.apply {
-            setLayout(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT
-            )
+            val displayMetrics = resources.displayMetrics
+            val width = (displayMetrics.widthPixels * 0.7).toInt()
+            val height = (displayMetrics.heightPixels * 0.6).toInt()
+
+            setLayout(width, height)
 
             setBackgroundDrawable(
                 ResourcesCompat.getDrawable(
