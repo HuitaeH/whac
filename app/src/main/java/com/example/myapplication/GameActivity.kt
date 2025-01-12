@@ -7,51 +7,56 @@ import android.widget.ImageView
 import kotlin.random.Random
 import android.os.Handler
 import android.os.Looper
+import android.widget.RelativeLayout
 
 class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Set the layout file where the ImageView is defined
         setContentView(R.layout.game_activity)
 
         // Function to create and animate a bug
         fun createAndAnimateBug() {
-            // Randomly choose a bug (ant, grasshopper, or worm)
-            val bug = ImageView(this)
-            val bugType = Random.nextInt(5) // 0, 1, or 2
-            when (bugType) {
-                0 -> bug.setImageResource(R.drawable.ant) // Set image to ant
-                1 -> bug.setImageResource(R.drawable.grasshopper) // Set image to grasshopper
-                2 -> bug.setImageResource(R.drawable.worm) // Set image to worm
-                3 -> bug.setImageResource(R.drawable.snail)
-                4 -> bug.setImageResource(R.drawable.frog)
+            // Create ImageView and set its size
+            val bug = ImageView(this).apply {
+                val dpSize = 55  // size in dp
+                val pixels = (dpSize * resources.displayMetrics.density).toInt()
+                layoutParams = RelativeLayout.LayoutParams(pixels, pixels)
             }
 
+            // Set random bug image
+            val bugType = Random.nextInt(5)
+            bug.setImageResource(when (bugType) {
+                0 -> R.drawable.ant
+                1 -> R.drawable.grasshopper
+                2 -> R.drawable.worm
+                3 -> R.drawable.snail
+                else -> R.drawable.frog
+            })
+
             // Add the bug to the layout
-            val layout = findViewById<android.widget.RelativeLayout>(R.id.game_layout)
+            val layout = findViewById<RelativeLayout>(R.id.game_layout)
             layout.addView(bug)
 
-            // Get screen width and height
+            // Get screen dimensions
             val screenWidth = resources.displayMetrics.widthPixels
             val screenHeight = resources.displayMetrics.heightPixels
 
-            // Set a random Y position for the bug
+            // Set Y position
             val fixedY = (screenHeight * 0.74).toInt()
             bug.y = fixedY.toFloat()
 
-            // Animate the bug from right to left
+            // Animate
             val animator = ObjectAnimator.ofFloat(bug, "translationX", screenWidth.toFloat(), -screenWidth.toFloat())
-            animator.duration = 5000L // Duration in milliseconds (5 seconds)
+            animator.duration = 5000L
             animator.start()
 
-            // After 1 second, create a new bug
+            // Create next bug after delay
             Handler(Looper.getMainLooper()).postDelayed({
                 createAndAnimateBug()
-            }, 1000L) // 1000ms delay
+            }, 1000L)
         }
 
-        // Start creating bugs on activity launch
+        // Start creating bugs
         createAndAnimateBug()
     }
 }

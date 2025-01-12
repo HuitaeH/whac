@@ -46,8 +46,8 @@ class SelectDialog : DialogFragment() {
         super.onStart()
         dialog?.window?.apply {
             val displayMetrics = resources.displayMetrics
-            val width = (displayMetrics.widthPixels * 0.7).toInt()
-            val height = (displayMetrics.heightPixels * 0.6).toInt()
+            val width = (displayMetrics.widthPixels * 0.9).toInt()
+            val height = (displayMetrics.heightPixels * 0.8).toInt()
 
             setLayout(width, height)
 
