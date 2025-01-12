@@ -3,8 +3,12 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/game_layout"
+    android:background="@drawable/background"
+    > <!-- Added id for layout container -->
 
+    <!-- This is just an example of a single bug, it will be added dynamically -->
     <ImageView
         android:id="@+id/ant"
         android:layout_width="50dp"
