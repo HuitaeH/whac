@@ -22,7 +22,7 @@ import com.kakao.sdk.common.util.Utility
 
 
 
-private const val TAG = "MainActivity"
+private const val TAG = "GameStartActivity"
 
 
 class GameStartActivity : AppCompatActivity() {
@@ -63,7 +63,18 @@ class GameStartActivity : AppCompatActivity() {
                 Log.e(TAG, "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
                 Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+
+                UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+                    if (error != null) {
+                        Log.e(TAG, "Token validation failed", error)
+                    } else if (tokenInfo != null) {
+                        Log.i(TAG, "Token is valid. User ID: ${tokenInfo.id}")
+                    }
+                }
+
+
             }
+
         }
 
         //without kakaotalk login - temporary
@@ -74,13 +85,13 @@ class GameStartActivity : AppCompatActivity() {
         }
 
 
-        //kakaotalk login
+//        kakaotalk login
 //        findViewById<Button>(R.id.startButton).setOnClickListener {
 //            // Check if KakaoTalk is installed and login accordingly
 //            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
 //                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
 //                    if (error != null) {
-//                        Log.e(TAG, "카카오톡으로 로그인 실패", error)
+//                        Log.e(TAG, "Login failed with error: ${error.message}", error)
 //
 //                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
 //                            return@loginWithKakaoTalk
@@ -89,7 +100,7 @@ class GameStartActivity : AppCompatActivity() {
 //                        // Attempt login with Kakao account
 //                        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
 //                    } else if (token != null) {
-//                        Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+//                        Log.i(TAG, "Login succeeded. Access token: ${token.accessToken}")
 //                        // **Handle Token** - Store it securely
 //                        storeToken(token.accessToken)
 //                        // Show dialog on successful login
