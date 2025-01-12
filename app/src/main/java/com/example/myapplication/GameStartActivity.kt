@@ -81,14 +81,14 @@ class GameStartActivity : AppCompatActivity() {
 
         }
 
-//        //without kakaotalk login - temporary
+        //without kakaotalk login - temporary
         findViewById<Button>(R.id.startButton).setOnClickListener {
             // Show dialog on successful login
-           val dialog = SelectDialog()
+            val dialog = SelectDialog()
             dialog.show(supportFragmentManager, "SelectDialog")
         }
 
-//
+
 //        //kakaotalk login
 //        findViewById<Button>(R.id.startButton).setOnClickListener {
 //            // Check if KakaoTalk is installed and login accordingly
