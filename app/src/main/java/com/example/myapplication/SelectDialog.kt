@@ -30,6 +30,8 @@ class SelectDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.singleButton).setOnClickListener {
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            startActivity(intent)
             dismiss()
         }
 
