@@ -19,11 +19,13 @@ class GameActivity : AppCompatActivity() {
         fun createAndAnimateBug() {
             // Randomly choose a bug (ant, grasshopper, or worm)
             val bug = ImageView(this)
-            val bugType = Random.nextInt(3) // 0, 1, or 2
+            val bugType = Random.nextInt(5) // 0, 1, or 2
             when (bugType) {
                 0 -> bug.setImageResource(R.drawable.ant) // Set image to ant
                 1 -> bug.setImageResource(R.drawable.grasshopper) // Set image to grasshopper
                 2 -> bug.setImageResource(R.drawable.worm) // Set image to worm
+                3 -> bug.setImageResource(R.drawable.snail)
+                4 -> bug.setImageResource(R.drawable.frog)
             }
 
             // Add the bug to the layout
