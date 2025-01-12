@@ -18,7 +18,7 @@ class GameActivity : AppCompatActivity() {
         fun createAndAnimateBug() {
             // Create ImageView and set its size
             val bug = ImageView(this).apply {
-                val dpSize = 55  // size in dp
+                val dpSize = 80  // size in dp
                 val pixels = (dpSize * resources.displayMetrics.density).toInt()
                 layoutParams = RelativeLayout.LayoutParams(pixels, pixels)
             }
@@ -42,18 +42,18 @@ class GameActivity : AppCompatActivity() {
             val screenHeight = resources.displayMetrics.heightPixels
 
             // Set Y position
-            val fixedY = (screenHeight * 0.74).toInt()
+            val fixedY = (screenHeight * 0.70).toInt()
             bug.y = fixedY.toFloat()
 
             // Animate
-            val animator = ObjectAnimator.ofFloat(bug, "translationX", screenWidth.toFloat(), -screenWidth.toFloat())
-            animator.duration = 5000L
+            val animator = ObjectAnimator.ofFloat(bug, "translationX", screenWidth.toFloat()*2, -screenWidth.toFloat())
+            animator.duration = 13000L
             animator.start()
 
             // Create next bug after delay
             Handler(Looper.getMainLooper()).postDelayed({
                 createAndAnimateBug()
-            }, 1000L)
+            }, Random.nextLong(500, 2000))
         }
 
         // Start creating bugs
